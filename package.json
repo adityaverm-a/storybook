@@ -1,0 +1,15 @@
+{
+  "name": "storybooks",
+  "version": "1.0.0",
+  "description": "Users to post public or private stories",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.4"
+  }
+}

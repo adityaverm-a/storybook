@@ -4,7 +4,7 @@
   "description": "Users to post public or private stories",
   "main": "app.js",
   "scripts": {
-    "start": "npm app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",

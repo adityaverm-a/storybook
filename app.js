@@ -1,14 +1,18 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const Handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
 const passport = require('passport');
 const CookieParser = require('cookie-parser');
 const session = require('express-session');
 
-//Load User
+//Load Models
 require('./models/User');
+require('./models/Story');
+
 
 //Passport Config
 require('./config/passport')(passport);
@@ -20,6 +24,15 @@ const stories = require('./routes/stories');
 
 //Load keys
 const keys = require('./config/keys')
+
+//Handlebars Helpers
+const {
+  truncate,
+  stripTags,
+  formatDate,
+  select,
+  editIcon
+} = require("./helpers/hbs")
 
 //Map Global Promises
 mongoose.Promise = global.Promise
@@ -37,11 +50,24 @@ const app = express();
 // Import function exported by newly installed node modules.
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
+//Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+//Method Override Middleware
+app.use(methodOverride('_method'));
 
 //Handlebars Middleware
 app.engine('handlebars', exphbs({
+  helpers: {
+    truncate: truncate,
+    stripTags: stripTags,
+    formatDate: formatDate,
+    select: select,
+    editIcon: editIcon
+  },
   defaultLayout: 'main',
-   handlebars: allowInsecurePrototypeAccess(Handlebars)
+  handlebars: allowInsecurePrototypeAccess(Handlebars)
 }));
 app.set("view engine", "handlebars");
 

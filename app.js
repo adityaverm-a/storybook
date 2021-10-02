@@ -22,8 +22,6 @@ const auth = require('./routes/auth');
 const index = require('./routes/index');
 const stories = require('./routes/stories');
 
-//Load keys
-const keys = require('./config/keys')
 
 //Handlebars Helpers
 const {
@@ -38,7 +36,7 @@ const {
 mongoose.Promise = global.Promise
 
 //Mongoose Connect
-mongoose.connect(keys.mongoURI, {
+mongoose.connect(process.env.mongoURI, {
  useNewUrlParser: true,
  useUnifiedTopology: true
 })
